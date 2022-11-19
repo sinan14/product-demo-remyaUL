@@ -1,14 +1,14 @@
 const express = require("express");
 const ProductData = require("./src/model/Productdata");
-const User = require("./src/model/user");
+// const User = require("./src/model/user");
 const cors = require("cors");
 var bodyparser = require("body-parser");
 const jwt = require("jsonwebtoken");
 var app = new express();
 app.use(cors());
 app.use(bodyparser.json());
-username = "admin";
-password = "1234";
+const username = "admin";
+const password = "1234";
 
 function verifyToken(req, res, next) {
   if (!req.headers.authorization) {
@@ -26,7 +26,7 @@ function verifyToken(req, res, next) {
   next();
 }
 
-app.post("/insert", verifyToken, function (req, res) {
+app.post("/insert", function (req, res) {
   console.log(req.body);
 
   var product = {
@@ -56,7 +56,7 @@ app.get("/:id", (req, res) => {
 
 app.post("/login", (req, res) => {
   let userData = req.body;
-
+  console.log("user data", userData);
   if (!username) {
     res.status(401).send("Invalid Username");
   } else if (password !== userData.password) {
